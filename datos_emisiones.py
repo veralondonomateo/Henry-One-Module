@@ -1,4 +1,5 @@
 import os
+import numpy
 
 def abrir_Archivo(archivo):
 
@@ -34,6 +35,8 @@ def abrir_Archivo(archivo):
             if dicc_emisiones["anio"][indice] == año:
                 if dicc_emisiones['co2'][indice] != "":
                     indices.append(indice)
+                else:
+                    dicc_emisiones['co2'][indice] = None
 
     co2 = 0
     for i in indices:
@@ -43,5 +46,16 @@ def abrir_Archivo(archivo):
 
     print(f'En {region} durante el año {año} las emisiones fueron {round(co2,2)} tk')
 
+    #Elemento faltante
+    faltantes = 0
+    for clave in dicc_emisiones:
+        for elemento in dicc_emisiones[clave]:
+            if not elemento:
+                faltantes += 1
+                print(f'Falta un elemento en {clave}')
+    print(f'Faltan {faltantes} elementos')
+
 if __name__ == "__main__":
     abrir_Archivo(open('Emisiones_CO2.csv', 'r', encoding='latin-1'))
+
+    #e
